@@ -14,14 +14,14 @@ public class Tests extends BaseRunner {
 
     }
 
-    @AfterTest
-    public void afterSuite() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    @AfterTest
+//    public void afterSuite() {
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
 
     @Test
@@ -76,11 +76,36 @@ public class Tests extends BaseRunner {
 
     @Test
     public void AddingOneProductToTheCart() {
+        driver.get("https://rozetka.com.ua/ua/apple_iphone_13_128gb_starlight/p318463900/");
 
+        WebElement cartAddButton = driver.findElement(By.ByXPath
+                .xpath("//div[@id='#scrollArea']/div/div[2]/rz-product-main-info/div/div/ul/li/rz-product-buy-btn/app-buy-button/button/span"));
+        cartAddButton.click();
+
+        WebElement notification = driver.findElement(By.ByXPath
+                .xpath("/html/body/app-root/div/div/rz-header/rz-main-header/header/div/div/ul/li[7]/rz-cart/button/rz-icon-counter/span"));
+        notification.isDisplayed();
     }
 
     @Test
     public void ChangingTheAmountOfGoodsInTheCart() {
+        driver.get("https://rozetka.com.ua/ua/apple_iphone_13_128gb_starlight/p318463900/");
+
+        WebElement cartAddButton = driver.findElement(By.ByXPath
+                .xpath("//div[@id='#scrollArea']/div/div[2]/rz-product-main-info/div/div/ul/li/rz-product-buy-btn/app-buy-button/button/span"));
+        cartAddButton.click();
+
+        WebElement cart = driver.findElement(By.ByXPath
+                .xpath("//*[@id='#scrollArea']/div[1]/div[2]/rz-product-main-info/div[1]/div/ul/li[1]/rz-product-buy-btn/app-buy-button/button"));
+        cart.click();
+
+        WebElement cartButtonPlus = driver.findElement(By.ByXPath
+                .xpath("(//button[@type='button'])[8]"));
+        cartButtonPlus.click();
+
+        WebElement cartButtonMinus = driver.findElement(By.ByXPath
+                .xpath("(//button[@type='button'])[7]"));
+        cartButtonMinus.click();
 
     }
 

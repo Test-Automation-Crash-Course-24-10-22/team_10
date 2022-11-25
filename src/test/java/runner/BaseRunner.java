@@ -26,6 +26,7 @@ public class BaseRunner {
 
     @AfterSuite
     public void afterSuite() {
+
         if (driver != null) {
             driver.quit();
         }
