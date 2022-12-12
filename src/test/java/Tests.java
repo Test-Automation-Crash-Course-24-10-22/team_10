@@ -26,7 +26,7 @@ public class Tests extends BaseRunner {
 //            throw new RuntimeException(e);
 //        }
 //    }
-
+//
 
     @Test
     public void userAuthorizationWithValidData() {
