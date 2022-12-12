@@ -1,15 +1,19 @@
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.Assertion;
+import pages.LoginPage;
 import runner.BaseRunner;
 
 public class Tests extends BaseRunner {
 
     @BeforeClass
-    public void  BeforeClass() {
+    public void BeforeClass() {
         setDriver();
 
     }
@@ -27,51 +31,54 @@ public class Tests extends BaseRunner {
     @Test
     public void userAuthorizationWithValidData() {
 
-        WebElement loginBox = driver.findElement(By.ByXPath
-                .xpath("(//button[@class='header__button ng-star-inserted'])[1]"));
-        loginBox.click();
+        LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
 
-        WebElement email = driver.findElement(By.ByXPath
-                .xpath("//input[@id='auth_email']"));
-        email.sendKeys("0986838080");
+        String actualTitle = loginPage
+                .loginBoxClick()
+                .emailSendKeys("0986838080")
+                .passSendKeys("Btim69")
+                .loginButtonClick()
+                .getTitle();
 
-        WebElement pass = driver.findElement(By.ByXPath
-                .xpath("//input[@id='auth_pass']"));
-        pass.sendKeys("Btim69");
+        String expectedTitle = "Сергій Антонець";
 
-        WebElement loginButton = driver.findElement(By.ByXPath
-                .xpath("//button[contains(.,'Увійти')]"));
-        loginButton.click();
+        Assert.assertEquals(expectedTitle, actualTitle);
     }
 
     @Test
     public void userAuthorizationWithInvalidData() {
-        WebElement loginBox = driver.findElement(By.ByXPath
-                .xpath("(//button[@class='header__button ng-star-inserted'])[1]"));
-        loginBox.click();
 
-        WebElement email = driver.findElement(By.ByXPath
-                .xpath("//input[@id='auth_email']"));
-        email.sendKeys("098683808");
+        LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
 
-        WebElement loginButton = driver.findElement(By.ByXPath
-                .xpath("//button[contains(.,'Увійти')]"));
-        loginButton.click();
+        String actualTitle = loginPage
+                .loginBoxClick()
+                .emailSendKeys("098683808")
+                .loginButtonClick()
+                .errorMassageIsDisplay();
 
-        WebElement errorEmail = driver.findElement(By.ByXPath
-                .xpath("//p[contains(.,'Введено невірну адресу ел. пошти або номер телефону')]"));
-        errorEmail.isDisplayed();
+        String expectedTitle = "Введено невірну адресу ел. пошти або номер телефону";
 
-        email.clear();
-        email.sendKeys("ser.antones@..");
-        loginButton.click();
-        errorEmail.isDisplayed();
+        Assert.assertEquals(expectedTitle, actualTitle);
 
-        email.clear();
-        email.sendKeys("0986838080");
 
-        loginButton.click();
+        actualTitle = loginPage
+                .emailClear()
+                .emailSendKeys("ser.antones@..")
+                .loginButtonClick()
+                .errorMassageIsDisplay();
 
+        Assert.assertEquals(expectedTitle, actualTitle);
+
+        actualTitle = loginPage
+                .emailClear()
+                .emailSendKeys("0986838080")
+                .passSendKeys("12345")
+                .loginButtonClick()
+                .errorPassMassageIsDisplay();
+
+        expectedTitle = "Введено невірний пароль!";
+
+        Assert.assertEquals(expectedTitle, actualTitle);
     }
 
     @Test
@@ -118,11 +125,11 @@ public class Tests extends BaseRunner {
         cartAddButton.click();
 
         WebElement cart = driver.findElement(By.ByXPath
-                .xpath("//*[@id=\"#scrollArea\"]/div[1]/div[2]/rz-product-main-info/div[1]/div/ul/li[1]/rz-product-buy-btn/app-buy-button/button"));
+                .xpath("//*[@id='#scrollArea']/div[1]/div[2]/rz-product-main-info/div[1]/div/ul/li[1]/rz-product-buy-btn/app-buy-button/button"));
         cart.click();
 
         WebElement cartButton_1 = driver.findElement(By.ByXPath
-                .xpath("//*[@id=\"cartProductActions0\"]"));
+                .xpath("//*[@id='cartProductActions0']"));
         cartButton_1.click();
 
         WebElement cartButton_2 = driver.findElement(By.ByXPath
@@ -134,7 +141,6 @@ public class Tests extends BaseRunner {
         notification.isDisplayed();
 
     }
-
 
 
 }
