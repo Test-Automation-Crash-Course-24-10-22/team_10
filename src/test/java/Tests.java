@@ -40,7 +40,7 @@ public class Tests extends BaseRunner {
                 .loginButtonClick()
                 .getTitle();
 
-        String expectedTitle = "Сергій Антонець";
+        String expectedTitle = "РЎРµСЂРіС–Р№ РђРЅС‚РѕРЅРµС†СЊ";
 
         Assert.assertEquals(expectedTitle, actualTitle);
     }
@@ -56,7 +56,7 @@ public class Tests extends BaseRunner {
                 .loginButtonClick()
                 .errorMassageIsDisplay();
 
-        String expectedTitle = "Введено невірну адресу ел. пошти або номер телефону";
+        String expectedTitle = "Р’РІРµРґРµРЅРѕ РЅРµРІС–СЂРЅСѓ Р°РґСЂРµСЃСѓ РµР». РїРѕС€С‚Рё Р°Р±Рѕ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅСѓ";
 
         Assert.assertEquals(expectedTitle, actualTitle);
 
@@ -76,10 +76,11 @@ public class Tests extends BaseRunner {
                 .loginButtonClick()
                 .errorPassMassageIsDisplay();
 
-        expectedTitle = "Введено невірний пароль!";
+        expectedTitle = "Р’РІРµРґРµРЅРѕ РЅРµРІС–СЂРЅРёР№ РїР°СЂРѕР»СЊ!";
 
         Assert.assertEquals(expectedTitle, actualTitle);
     }
+//
 
     @Test
     public void AddingOneProductToTheCart() {
@@ -137,7 +138,7 @@ public class Tests extends BaseRunner {
         cartButton_2.click();
 
         WebElement notification = driver.findElement(By.ByXPath
-                .xpath("//h4[contains(.,'Кошик порожній')]"));
+                .xpath("//h4[contains(.,'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]"));
         notification.isDisplayed();
 
     }
