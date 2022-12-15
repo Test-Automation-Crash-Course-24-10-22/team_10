@@ -6,7 +6,9 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import pages.CartPage;
 import pages.LoginPage;
+import pages.ProductPage;
 import runner.BaseRunner;
 
 public class Tests extends BaseRunner {
@@ -72,36 +74,38 @@ public class Tests extends BaseRunner {
 
     @Test
     public void AddingOneProductToTheCart() {
-        driver.get("https://rozetka.com.ua/ua/apple_iphone_13_128gb_starlight/p318463900/");
 
-        WebElement cartAddButton = driver.findElement(By.ByXPath
-                .xpath("//div[@id='#scrollArea']/div/div[2]/rz-product-main-info/div/div/ul/li/rz-product-buy-btn/app-buy-button/button/span"));
-        cartAddButton.click();
+        ProductPage productPage = PageFactory.initElements(driver, ProductPage.class);
 
-        WebElement notification = driver.findElement(By.ByXPath
-                .xpath("/html/body/app-root/div/div/rz-header/rz-main-header/header/div/div/ul/li[7]/rz-cart/button/rz-icon-counter/span"));
-        notification.isDisplayed();
+        driver.get(productPage.openProductPage());
+
+        String actualTitle = productPage
+                .cartAddButtonClick()
+                .notificationMassage();
+
+        String expectedTitle = "1";
+
+        Assert.assertEquals(expectedTitle, actualTitle);
+
     }
 
     @Test
     public void ChangingTheAmountOfGoodsInTheCart() {
-        driver.get("https://rozetka.com.ua/ua/apple_iphone_13_128gb_starlight/p318463900/");
 
-        WebElement cartAddButton = driver.findElement(By.ByXPath
-                .xpath("//div[@id='#scrollArea']/div/div[2]/rz-product-main-info/div/div/ul/li/rz-product-buy-btn/app-buy-button/button/span"));
-        cartAddButton.click();
+        CartPage cartPage = PageFactory.initElements(driver, CartPage.class);
 
-        WebElement cart = driver.findElement(By.ByXPath
-                .xpath("//*[@id='#scrollArea']/div[1]/div[2]/rz-product-main-info/div[1]/div/ul/li[1]/rz-product-buy-btn/app-buy-button/button"));
-        cart.click();
+        driver.get(cartPage.openProductPage());
 
-        WebElement cartButtonPlus = driver.findElement(By.ByXPath
-                .xpath("(//button[@type='button'])[8]"));
-        cartButtonPlus.click();
+        String actualTitle = cartPage
+                .cartAddButtonClick()
+                .cartClick()
+                .cartButtonPlusClick()
+                .cartButtonMinusClick()
+                .notificationMassage();
 
-        WebElement cartButtonMinus = driver.findElement(By.ByXPath
-                .xpath("(//button[@type='button'])[7]"));
-        cartButtonMinus.click();
+        String expectedTitle = "1";
+
+        Assert.assertEquals(expectedTitle, actualTitle);
 
     }
 
