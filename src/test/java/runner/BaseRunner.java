@@ -9,7 +9,6 @@ import org.testng.annotations.BeforeSuite;
 import java.time.Duration;
 
 public class BaseRunner {
-
     protected WebDriver driver;
 
     @BeforeSuite

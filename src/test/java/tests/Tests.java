@@ -1,12 +1,11 @@
+package tests;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.asserts.Assertion;
 import pages.LoginPage;
 import runner.BaseRunner;
 
@@ -15,18 +14,7 @@ public class Tests extends BaseRunner {
     @BeforeClass
     public void BeforeClass() {
         setDriver();
-
     }
-
-//    @AfterTest
-//    public void afterSuite() {
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
 
     @Test
     public void userAuthorizationWithValidData() {
@@ -138,10 +126,8 @@ public class Tests extends BaseRunner {
         cartButton_2.click();
 
         WebElement notification = driver.findElement(By.ByXPath
-                .xpath("//h4[contains(.,'����� �������')]"));
+                .xpath("//h4[contains(.,'Кошик порожній')]"));
         notification.isDisplayed();
 
     }
-
-
 }
