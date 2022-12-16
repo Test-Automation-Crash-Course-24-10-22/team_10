@@ -82,9 +82,8 @@ public class Tests extends BaseRunner {
 
         ProductPage productPage = PageFactory.initElements(driver, ProductPage.class);
 
-        driver.get(productPage.openProductPage());
-
         String actualTitle = productPage
+                .openProductPage()
                 .cartAddButtonClick()
                 .notificationMassage();
 

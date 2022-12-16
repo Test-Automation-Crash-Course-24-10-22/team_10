@@ -1,9 +1,10 @@
 package pages;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class ProductPage {
+public class ProductPage extends BasePage{
 
 
     @FindBy(xpath = "//div[@id='#scrollArea']/div/div[2]/rz-product-main-info/div/div/ul/li/rz-product-buy-btn/app-buy-button/button/span")
@@ -13,11 +14,13 @@ public class ProductPage {
     private WebElement notification;
 
 
-    public ProductPage() {
+    public ProductPage(WebDriver driver) {
+        super(driver);
     }
 
-    public String openProductPage() {
-        return "https://rozetka.com.ua/ua/apple_iphone_13_128gb_starlight/p318463900/";
+    public ProductPage openProductPage() {
+        driver.get("https://rozetka.com.ua/ua/apple_iphone_13_128gb_starlight/p318463900/");
+        return this;
     }
 
     public ProductPage cartAddButtonClick() {
