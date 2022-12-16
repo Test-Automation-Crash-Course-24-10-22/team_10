@@ -1,10 +1,17 @@
 package pages;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginPage {
-    @FindBy(xpath = "(//button[@class='header__button ng-star-inserted'])[1]")
+import java.time.Duration;
+
+public class LoginPage extends BasePage{
+
+
+    @FindBy(xpath = "(//button[@class='header__button ng-star-inserted'])")
     private WebElement loginBox;
 
     @FindBy(xpath = "//input[@id='auth_email']")
@@ -25,9 +32,12 @@ public class LoginPage {
     @FindBy (xpath = "//strong[contains(.,'Введено невірний пароль!')]")
     private WebElement errorPassMassage;
 
-    public LoginPage() {}
+    public LoginPage(WebDriver driver) {
+        super(driver);
+    }
 
     public LoginPage loginBoxClick() {
+        driver.get("https://rozetka.com.ua/ua/");
         loginBox.click();
         return this;
     }
@@ -53,15 +63,21 @@ public class LoginPage {
     }
 
     public String  getTitle() {
+
+        new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.visibilityOfAllElements(titlePage));
         return titlePage.getText();
     }
 
     public String  errorMassageIsDisplay() {
+
         return errorMassage.getText();
     }
 
     public String errorPassMassageIsDisplay() {
+
+        new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.visibilityOfAllElements(errorPassMassage));
         return errorPassMassage.getText();
     }
+
 
 }

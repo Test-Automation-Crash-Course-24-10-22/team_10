@@ -1,32 +1,52 @@
 package pages;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CartPage {
+import java.time.Duration;
+
+public class CartPage extends BasePage{
 
 
     @FindBy(xpath = "//div[@id='#scrollArea']/div/div[2]/rz-product-main-info/div/div/ul/li/rz-product-buy-btn/app-buy-button/button/span")
     private WebElement cartAddButton;
 
-    @FindBy(xpath = "//*[@id='#scrollArea']/div[1]/div[2]/rz-product-main-info/div[1]/div/ul/li[1]/rz-product-buy-btn/app-buy-button/button")
+    @FindBy(xpath = "//ul[@class='product-buttons']//button[1]")
     private WebElement cart;
 
-    @FindBy(xpath = "//button[@type='button'])[8]")
+    @FindBy(xpath = "(//ul[@class='header-actions']//li//button)[2]")
+    private WebElement cartIcon;
+
+
+    @FindBy(xpath = "//div[@class='cart-counter']//button[2]")
     private WebElement cartButtonPlus;
 
-    @FindBy(xpath = "//button[@type='button'])[7]")
+    @FindBy(xpath = "//div[@class='cart-counter']//button[1]")
     private WebElement cartButtonMinus;
 
     @FindBy(xpath = "/html/body/app-root/div/div/rz-header/rz-main-header/header/div/div/ul/li[7]/rz-cart/button/rz-icon-counter/span")
     private WebElement notification;
 
+    @FindBy(xpath = "//*[@id='cartProductActions0']")
+    private WebElement cartButtonMenu;
 
-    public CartPage() {}
+    @FindBy(xpath = "//*[@id='cartProductActions0']/ul/li[1]/rz-trash-icon/button")
+    private WebElement cartButtonDelete;
 
-    public String openProductPage() {
+    @FindBy(xpath = "//h4[contains(.,'Кошик порожній')]")
+    private WebElement massage;
 
-        return "https://rozetka.com.ua/ua/apple_iphone_13_128gb_starlight/p318463900/";
+
+    public CartPage(WebDriver driver) {
+        super(driver);
+    }
+
+    public CartPage openProductPage() {
+        driver.get("https://rozetka.com.ua/ua/apple_iphone_13_128gb_starlight/p318463900/");
+        return this;
     }
 
     public CartPage cartAddButtonClick() {
@@ -35,9 +55,15 @@ public class CartPage {
     }
 
     public CartPage cartClick() {
-        cart.click();
+        driver.get("https://rozetka.com.ua/ua/cart/");
         return this;
     }
+
+    public CartPage cartIconClick() {
+        cartIcon.click();
+        return this;
+    }
+
 
     public CartPage cartButtonPlusClick() {
         cartButtonPlus.click();
@@ -53,6 +79,19 @@ public class CartPage {
         return notification.getText();
     }
 
+    public CartPage cartButtonMenuClick() {
+        cartButtonMenu.click();
+        return this;
+    }
+
+    public CartPage cartButtonDeleteClick() {
+        cartButtonDelete.click();
+        return this;
+    }
+
+    public String massageIsDisplay() {
+        return massage.getText();
+    }
 
 
 }

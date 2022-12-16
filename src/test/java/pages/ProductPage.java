@@ -13,7 +13,8 @@ public class ProductPage {
     private WebElement notification;
 
 
-    public ProductPage() {}
+    public ProductPage() {
+    }
 
     public String openProductPage() {
         return "https://rozetka.com.ua/ua/apple_iphone_13_128gb_starlight/p318463900/";
@@ -27,7 +28,6 @@ public class ProductPage {
     public String notificationMassage() {
         return notification.getText();
     }
-
 
 
 }

@@ -1,8 +1,11 @@
 package tests;
 
+import org.apache.hc.core5.reactor.Command;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -11,6 +14,8 @@ import pages.LoginPage;
 import pages.ProductPage;
 import runner.BaseRunner;
 
+import java.time.Duration;
+
 public class Tests extends BaseRunner {
 
     @BeforeClass
@@ -18,7 +23,7 @@ public class Tests extends BaseRunner {
         setDriver();
     }
 
-    @Test
+    @Test(priority = 4)
     public void userAuthorizationWithValidData() {
 
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
@@ -35,7 +40,7 @@ public class Tests extends BaseRunner {
         Assert.assertEquals(expectedTitle, actualTitle);
     }
 
-    @Test
+    @Test(priority = 3)
     public void userAuthorizationWithInvalidData() {
 
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
@@ -70,9 +75,9 @@ public class Tests extends BaseRunner {
 
         Assert.assertEquals(expectedTitle, actualTitle);
     }
-//
 
-    @Test
+
+    @Test(priority = 2)
     public void AddingOneProductToTheCart() {
 
         ProductPage productPage = PageFactory.initElements(driver, ProductPage.class);
@@ -89,14 +94,13 @@ public class Tests extends BaseRunner {
 
     }
 
-    @Test
+    @Test(priority = 1)
     public void ChangingTheAmountOfGoodsInTheCart() {
 
         CartPage cartPage = PageFactory.initElements(driver, CartPage.class);
 
-        driver.get(cartPage.openProductPage());
-
         String actualTitle = cartPage
+                .openProductPage()
                 .cartAddButtonClick()
                 .cartClick()
                 .cartButtonPlusClick()
@@ -109,29 +113,22 @@ public class Tests extends BaseRunner {
 
     }
 
-    @Test
+    @Test(priority = 0)
     public void RemovingTheProductFromTheCart() {
-        driver.get("https://rozetka.com.ua/ua/apple_iphone_13_128gb_starlight/p318463900/");
+        CartPage cartPage = PageFactory.initElements(driver, CartPage.class);
 
-        WebElement cartAddButton = driver.findElement(By.ByXPath
-                .xpath("//div[@id='#scrollArea']/div/div[2]/rz-product-main-info/div/div/ul/li/rz-product-buy-btn/app-buy-button/button/span"));
-        cartAddButton.click();
+        String actualTitle = cartPage
+                .openProductPage()
+                .cartAddButtonClick()
+                .cartClick()
+                .cartButtonMenuClick()
+                .cartButtonDeleteClick()
+                .massageIsDisplay();
 
-        WebElement cart = driver.findElement(By.ByXPath
-                .xpath("//*[@id='#scrollArea']/div[1]/div[2]/rz-product-main-info/div[1]/div/ul/li[1]/rz-product-buy-btn/app-buy-button/button"));
-        cart.click();
+        String expectedTitle = "Кошик порожній";
 
-        WebElement cartButton_1 = driver.findElement(By.ByXPath
-                .xpath("//*[@id='cartProductActions0']"));
-        cartButton_1.click();
+        Assert.assertEquals(expectedTitle, actualTitle);
 
-        WebElement cartButton_2 = driver.findElement(By.ByXPath
-                .xpath("//*[@id='cartProductActions0']/ul/li[1]/rz-trash-icon/button"));
-        cartButton_2.click();
-
-        WebElement notification = driver.findElement(By.ByXPath
-                .xpath("//h4[contains(.,'Кошик порожній')]"));
-        notification.isDisplayed();
 
     }
 }
