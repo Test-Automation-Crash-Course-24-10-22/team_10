@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.CartPage;
 import pages.LoginPage;
 import pages.ProductPage;
@@ -43,6 +44,8 @@ public class Tests extends BaseRunner {
     @Test(priority = 3)
     public void userAuthorizationWithInvalidData() {
 
+        SoftAssert softAssert = new SoftAssert();
+
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
 
         String actualTitle = loginPage
@@ -53,8 +56,7 @@ public class Tests extends BaseRunner {
 
         String expectedTitle = "Введено невірну адресу ел. пошти або номер телефону";
 
-        Assert.assertEquals(expectedTitle, actualTitle);
-
+        softAssert.assertEquals(expectedTitle, actualTitle);
 
         actualTitle = loginPage
                 .emailClear()
@@ -62,7 +64,7 @@ public class Tests extends BaseRunner {
                 .loginButtonClick()
                 .errorMassageIsDisplay();
 
-        Assert.assertEquals(expectedTitle, actualTitle);
+        softAssert.assertEquals(expectedTitle, actualTitle);
 
         actualTitle = loginPage
                 .emailClear()
@@ -73,7 +75,9 @@ public class Tests extends BaseRunner {
 
         expectedTitle = "Введено невірний пароль!";
 
-        Assert.assertEquals(expectedTitle, actualTitle);
+        softAssert.assertEquals(expectedTitle, actualTitle);
+
+        softAssert.assertAll();
     }
 
 
