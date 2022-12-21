@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,16 +19,17 @@ public class ProductPage extends BasePage{
         super(driver);
     }
 
+    @Step("Open product page")
     public ProductPage openProductPage() {
         driver.get("https://rozetka.com.ua/ua/apple_iphone_13_128gb_starlight/p318463900/");
         return this;
     }
-
+    @Step("Cart add button click")
     public ProductPage cartAddButtonClick() {
         cartAddButton.click();
         return this;
     }
-
+    @Step("Notification massage")
     public String notificationMassage() {
         return notification.getText();
     }

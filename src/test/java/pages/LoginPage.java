@@ -1,5 +1,7 @@
 package pages;
 
+
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -36,43 +38,45 @@ public class LoginPage extends BasePage{
         super(driver);
     }
 
+    @Step("Login page click")
     public LoginPage loginBoxClick() {
         driver.get("https://rozetka.com.ua/ua/");
         loginBox.click();
         return this;
     }
-
+    @Step("email send keys")
     public LoginPage emailSendKeys(String str) {
         email.sendKeys(str);
         return this;
     }
-
+    @Step("Email clear")
     public LoginPage emailClear() {
         email.clear();
         return this;
     }
-
+    @Step("Pass send keys")
     public LoginPage passSendKeys(String str) {
         pass.sendKeys(str);
         return this;
     }
-
+    @Step("Login button click")
     public LoginPage loginButtonClick() {
         loginButton.click();
         return this;
     }
-
+    @Step("Get title")
     public String  getTitle() {
 
         new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.visibilityOfAllElements(titlePage));
         return titlePage.getText();
     }
 
+    @Step("Error massage is display")
     public String  errorMassageIsDisplay() {
 
         return errorMassage.getText();
     }
-
+    @Step("Error pass massage is display")
     public String errorPassMassageIsDisplay() {
 
         new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.visibilityOfAllElements(errorPassMassage));

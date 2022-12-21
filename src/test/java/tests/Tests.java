@@ -1,11 +1,6 @@
 package tests;
 
-import org.apache.hc.core5.reactor.Command;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -15,7 +10,6 @@ import pages.LoginPage;
 import pages.ProductPage;
 import runner.BaseRunner;
 
-import java.time.Duration;
 
 public class Tests extends BaseRunner {
 
@@ -24,7 +18,7 @@ public class Tests extends BaseRunner {
         setDriver();
     }
 
-    @Test(priority = 4)
+    @Test(priority = 4, description="User authorization with valid data")
     public void userAuthorizationWithValidData() {
 
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
@@ -41,7 +35,7 @@ public class Tests extends BaseRunner {
         Assert.assertEquals(expectedTitle, actualTitle);
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3, description="User authorization with invalid data")
     public void userAuthorizationWithInvalidData() {
 
         SoftAssert softAssert = new SoftAssert();
@@ -81,8 +75,8 @@ public class Tests extends BaseRunner {
     }
 
 
-    @Test(priority = 2)
-    public void AddingOneProductToTheCart() {
+    @Test(priority = 2, description="Adding one product to the cart")
+    public void addingOneProductToTheCart() {
 
         ProductPage productPage = PageFactory.initElements(driver, ProductPage.class);
 
@@ -97,8 +91,8 @@ public class Tests extends BaseRunner {
 
     }
 
-    @Test(priority = 1)
-    public void ChangingTheAmountOfGoodsInTheCart() {
+    @Test(priority = 1, description="Changing the amount of goods in the cart")
+    public void changingTheAmountOfGoodsInTheCart() {
 
         CartPage cartPage = PageFactory.initElements(driver, CartPage.class);
 
@@ -116,8 +110,8 @@ public class Tests extends BaseRunner {
 
     }
 
-    @Test(priority = 0)
-    public void RemovingTheProductFromTheCart() {
+    @Test(priority = 0, description="Removing the product from the cart")
+    public void removingTheProductFromTheCart() {
         CartPage cartPage = PageFactory.initElements(driver, CartPage.class);
 
         String actualTitle = cartPage

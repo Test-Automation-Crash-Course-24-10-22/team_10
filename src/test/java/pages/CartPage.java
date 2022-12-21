@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -44,51 +45,53 @@ public class CartPage extends BasePage{
         super(driver);
     }
 
+    @Step("Open product page")
     public CartPage openProductPage() {
         driver.get("https://rozetka.com.ua/ua/apple_iphone_13_128gb_starlight/p318463900/");
         return this;
     }
-
+    @Step("Cart add button click")
     public CartPage cartAddButtonClick() {
         cartAddButton.click();
         return this;
     }
-
+    @Step("Cart click")
     public CartPage cartClick() {
         driver.get("https://rozetka.com.ua/ua/cart/");
         return this;
     }
-
+    @Step("Cart page")
     public CartPage cartIconClick() {
         cartIcon.click();
         return this;
     }
 
-
+    @Step("Cart button plus click")
     public CartPage cartButtonPlusClick() {
         cartButtonPlus.click();
         return this;
     }
-
+    @Step("Cart button minus click")
     public CartPage cartButtonMinusClick() {
         cartButtonMinus.click();
         return this;
     }
-
+    @Step("Notification massage")
     public String notificationMassage() {
         return notification.getText();
     }
 
+    @Step("Cart button menu click")
     public CartPage cartButtonMenuClick() {
         cartButtonMenu.click();
         return this;
     }
-
+    @Step("Cart button delete click")
     public CartPage cartButtonDeleteClick() {
         cartButtonDelete.click();
         return this;
     }
-
+    @Step("Massage is display")
     public String massageIsDisplay() {
         return massage.getText();
     }
